@@ -2,7 +2,7 @@
   "name": "nest-typeorm-postgres-boilerplate",
   "private": true,
   "version": "0.0.1",
-  "description": "Boilerplate for Nest.js / TypeORM / Postgres project",
+  "description": "Boilerplate for Nest.js-TypeORM-Postgres project",
   "license": "MIT",
   "scripts": {
     "dev": "nest start --watch",
@@ -11,10 +11,11 @@
     "build": "rimraf dist && nest build",
     "format": "prettier -w -u --loglevel=error .",
     "lint": "eslint . --fix --ext .js,.ts",
-    "test": "jest",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "coverage": "jest --coverage",
-    "e2e": "jest --config ./test/jest-e2e.json"
+    "test": "jest --watch",
+    "test:cov": "jest --watchAll --coverage",
+    "test:e2e": "jest --watchAll --config ./test/jest-e2e.json",
+    "test:ci": "jest --watchAll=false --coverage --no-cache",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "dependencies": {
     "@nestjs/common": "^8.1.1",

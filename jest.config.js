@@ -1,3 +1,4 @@
+/** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
   moduleFileExtensions: ['js', 'json', 'ts'],
   rootDir: 'src',
@@ -5,7 +6,8 @@ module.exports = {
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
-  collectCoverageFrom: ['**/*.(t|j)s'],
-  coverageDirectory: '../coverage',
+  collectCoverageFrom: ['**/*.ts'],
+  coveragePathIgnorePatterns: ['.dto\\.ts'],
+  coverageReporters: ['json-summary', 'text', 'lcov'],
   testEnvironment: 'node',
 }
