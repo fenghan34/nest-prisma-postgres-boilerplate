@@ -19,6 +19,8 @@
     "strict": true,
     "alwaysStrict": true,
     "strictNullChecks": true,
-    "paths": {}
+    "paths": {
+      "src/*": ["src/*"]
+    }
   }
 }
