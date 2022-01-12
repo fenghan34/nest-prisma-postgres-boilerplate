@@ -11,7 +11,7 @@ module.exports = {
   },
   collectCoverageFrom: ['**/*.ts'],
   coveragePathIgnorePatterns: ['test', '.dto\\.ts', '.d.ts'],
-  coverageDirectory: '../coverage',
+  coverageDirectory: 'coverage',
   coverageReporters: ['json-summary', 'text', 'lcov'],
   testEnvironment: 'node',
 }
