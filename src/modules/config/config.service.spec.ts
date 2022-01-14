@@ -22,4 +22,10 @@ describe('ConfigService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined()
   })
+
+  it('should be db url', () => {
+    expect(service.get('DATABASE_URL')).toBe(
+      'postgresql://postgres:123456@localhost:5432/nest-boilerplate',
+    )
+  })
 })

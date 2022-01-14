@@ -3,5 +3,5 @@ export type ConfigOptions = {
 }
 
 export type EnvConfig = {
-  //
+  DATABASE_URL?: string
 }

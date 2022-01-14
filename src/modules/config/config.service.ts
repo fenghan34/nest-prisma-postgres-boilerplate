@@ -14,7 +14,7 @@ export class ConfigService {
     private options: ConfigOptions,
   ) {
     const { folderPath } = options
-    const fileName = `.${process.env.NODE_ENV || 'development'}.env`
+    const fileName = `.env.${process.env.NODE_ENV || 'development'}`
     const envFile = path.join(folderPath, fileName)
 
     this.config = dotenv.parse(fs.readFileSync(envFile))
