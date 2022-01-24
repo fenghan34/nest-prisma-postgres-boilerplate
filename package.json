@@ -8,15 +8,16 @@
     "dev": "cross-env NODE_ENV=development nest start --watch",
     "dev:debug": "cross-env NODE_ENV=development nest start --debug --watch",
     "start": "cross-env NODE_ENV=production node dist/main",
-    "build": "rimraf dist && nest build",
+    "build": "prisma generate && rimraf dist && nest build",
     "format": "prettier -w -u --loglevel=error .",
     "lint": "eslint . --fix --ext .js,.ts",
-    "migrate": "dotenv -e config/.env.development -- pnpx prisma migrate dev --name postgres-init",
+    "migrate:dev": "dotenv -e config/.env.development -- pnpx prisma migrate dev",
     "test": "jest --watch",
     "test:cov": "jest --watchAll --coverage",
     "test:e2e": "jest --watchAll --config ./test/jest-e2e.json",
     "test:ci": "jest --ci --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "prepare": "husky install && prisma generate"
   },
   "dependencies": {
     "@nestjs/common": "^8.1.1",
@@ -59,6 +60,9 @@
     "tsconfig-paths": "^3.11.0",
     "typescript": "4.4.4",
     "webpack": "^5.65.0"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "lint-staged": {
     "*.{js,ts}": "eslint",
