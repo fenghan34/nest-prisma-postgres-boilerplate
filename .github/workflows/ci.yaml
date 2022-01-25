@@ -39,7 +39,7 @@ jobs:
       - name: Run tests
         run: pnpm run test:ci
 
-      - name: Generate coverage badge
-        uses: jpb06/jest-badges-action@latest
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
         with:
-          branches: main
+          token: ${{ secrets.CODECOV_TOKEN }}
