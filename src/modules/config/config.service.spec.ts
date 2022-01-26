@@ -23,9 +23,8 @@ describe('ConfigService', () => {
     expect(service).toBeDefined()
   })
 
-  it('should be db url', () => {
-    expect(service.get('DATABASE_URL')).toBe(
-      'postgresql://postgres:123456@localhost:5432/nest-boilerplate',
-    )
+  it('should return environment variables', () => {
+    expect(service.get('TEST' as any)).toBeUndefined()
+    expect(service.get('DATABASE_URL')).toBe(process.env.DATABASE_URL)
   })
 })
