@@ -13,13 +13,18 @@ export class ConfigService {
     @Inject(InjectionTokens.CONFIG_OPTIONS)
     private options: ConfigOptions,
   ) {
-    const { folderPath } = options
-    const fileName = `.env.${process.env.NODE_ENV || 'development'}`
-    const envFile = path.join(folderPath, fileName)
+    const { loadEnvFile, folderPath } = options
 
-    dotenv.config({ path: envFile })
+    if (loadEnvFile) {
+      const fileName = `.env.${process.env.NODE_ENV || 'development'}`
+      const envFile = path.join(folderPath, fileName)
 
-    this.config = dotenv.parse(fs.readFileSync(envFile))
+      dotenv.config({ path: envFile })
+
+      this.config = dotenv.parse(fs.readFileSync(envFile))
+    } else {
+      this.config = process.env
+    }
   }
 
   get(key: keyof EnvConfig) {

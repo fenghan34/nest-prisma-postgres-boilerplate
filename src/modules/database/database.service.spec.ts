@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
+import { InjectionTokens } from 'src/constants'
+import { ConfigService } from '../config/config.service'
 import { DatabaseService } from './database.service'
 
 describe('DatabaseService', () => {
@@ -6,7 +8,17 @@ describe('DatabaseService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [DatabaseService],
+      providers: [
+        {
+          provide: InjectionTokens.CONFIG_OPTIONS,
+          useValue: {
+            folderPath: `${process.cwd()}/config`,
+            loadEnvFile: true,
+          },
+        },
+        ConfigService,
+        DatabaseService,
+      ],
     }).compile()
 
     databaseService = module.get<DatabaseService>(DatabaseService)

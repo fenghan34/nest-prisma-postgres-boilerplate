@@ -2,7 +2,7 @@
   "name": "nest-prisma-postgres-boilerplate",
   "private": true,
   "version": "0.1.0",
-  "description": "Boilerplate for Nest.js-TypeORM-Postgres project",
+  "description": "Boilerplate for NestJS-Prisma-Postgres project",
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nest start --watch",
@@ -12,11 +12,11 @@
     "format": "prettier -w -u --loglevel=error .",
     "lint": "eslint . --fix --ext .js,.ts",
     "migrate:dev": "dotenv -e config/.env.development -- pnpx prisma migrate dev",
-    "test": "dotenv -e config/.env.test -- jest --watch",
-    "test:cov": "dotenv -e config/.env.test -- jest --watchAll --coverage",
-    "test:e2e": "dotenv -e config/.env.test -- jest --watchAll --config ./test/jest-e2e.json",
-    "test:ci": "dotenv -e config/.env.test -- jest --ci --coverage",
-    "test:debug": "dotenv -e config/.env.test -- node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test": "jest --watch",
+    "test:cov": "jest --watchAll --coverage",
+    "test:e2e": "jest --watchAll --config ./test/jest-e2e.js",
+    "test:ci": "jest --ci --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "prepare": "husky install && prisma generate"
   },
   "dependencies": {

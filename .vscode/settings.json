@@ -4,7 +4,7 @@
     "source.organizeImports": true,
     "source.addMissingImports": true
   },
-  "jest.jestCommandLine": "pnpx dotenv -e config/.env.test -- jest",
+  "jest.jestCommandLine": "pnpx jest",
   "jest.autoRun": {
     "watch": false,
     "onSave": "test-file"
