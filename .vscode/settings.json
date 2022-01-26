@@ -3,5 +3,10 @@
     "source.fixAll.eslint": true,
     "source.organizeImports": true,
     "source.addMissingImports": true
+  },
+  "jest.jestCommandLine": "pnpx dotenv -e config/.env.test -- jest",
+  "jest.autoRun": {
+    "watch": false,
+    "onSave": "test-file"
   }
 }
