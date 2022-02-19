@@ -1,17 +1,22 @@
-import { Inject, Injectable } from '@nestjs/common'
+import {
+  CacheModuleOptions,
+  CacheOptionsFactory,
+  Inject,
+  Injectable,
+} from '@nestjs/common'
 import dotenv from 'dotenv'
 import fs from 'fs'
 import path from 'path'
 import { InjectionTokens } from 'src/constants'
-import { ConfigOptions, EnvConfig } from './interface'
+import { Config, ConfigOptions } from './interface'
 
 @Injectable()
-export class ConfigService {
-  private readonly config: EnvConfig = {}
+export class ConfigService implements CacheOptionsFactory {
+  private readonly config: Config = {}
 
   constructor(
     @Inject(InjectionTokens.CONFIG_OPTIONS)
-    private options: ConfigOptions,
+    private options: Required<ConfigOptions>,
   ) {
     const { loadEnvFile, folderPath } = options
 
@@ -27,7 +32,15 @@ export class ConfigService {
     }
   }
 
-  get(key: keyof EnvConfig) {
+  get(key: keyof Config) {
     return this.config[key]
+  }
+
+  createCacheOptions(): CacheModuleOptions<Record<string, any>> {
+    return {
+      isGlobal: true,
+      max: Number(this.get('CACHE_MAX_ITEMS')) || 10,
+      ttl: Number(this.get('CACHE_TTL')) || 5,
+    }
   }
 }
