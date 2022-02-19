@@ -4,7 +4,7 @@ import { ConfigService } from './config.service'
 import { ConfigOptions } from './interface'
 
 describe('ConfigService', () => {
-  const genConfigService = async (options: Partial<ConfigOptions>) => {
+  const genConfigService = async (options: ConfigOptions) => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {

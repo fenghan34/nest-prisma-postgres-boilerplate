@@ -7,18 +7,20 @@ import { ConfigOptions } from './interface'
   providers: [ConfigService],
 })
 export class ConfigModule {
-  static register(options?: Partial<ConfigOptions>): DynamicModule {
-    const defaultConfigModuleOptions = {
+  static register(options?: ConfigOptions): DynamicModule {
+    const defaultOptions: ConfigOptions = {
       folderPath: `${process.cwd()}/config`,
       loadEnvFile: true,
+      isGlobal: true,
     }
 
     return {
+      global: options?.isGlobal || defaultOptions.isGlobal,
       module: ConfigModule,
       providers: [
         {
           provide: InjectionTokens.CONFIG_OPTIONS,
-          useValue: Object.assign(defaultConfigModuleOptions, options),
+          useValue: { ...defaultOptions, options },
         },
         ConfigService,
       ],
