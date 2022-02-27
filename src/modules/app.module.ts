@@ -6,6 +6,7 @@ import { AppService } from './app.service'
 import { ConfigModule } from './config/config.module'
 import { ConfigService } from './config/config.service'
 import { DatabaseModule } from './database/database.module'
+import { UsersModule } from './users/users.module'
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { DatabaseModule } from './database/database.module'
       useExisting: ConfigService,
     }),
     DatabaseModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
