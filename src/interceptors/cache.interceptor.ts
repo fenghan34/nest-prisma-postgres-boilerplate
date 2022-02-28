@@ -1,20 +1,18 @@
 import { CacheInterceptor, ExecutionContext } from '@nestjs/common'
+import { Request } from 'express'
 
 export class HttpCacheInterceptor extends CacheInterceptor {
-  protected trackBy(context: ExecutionContext): string | undefined {
-    const request = context.switchToHttp().getRequest()
-    const { httpAdapter } = this.httpAdapterHost
-    const requestUrl = httpAdapter.getRequestUrl(request)
+  trackBy(context: ExecutionContext): string | undefined {
+    const request = context.switchToHttp().getRequest<Request>()
 
-    const isGetRequest = httpAdapter.getRequestMethod(request) === 'GET'
+    const requestUrl = request.url
+    const isGetRequest = request.method === 'GET'
 
     // Routes to be excluded, which won't be cached
     const excludePaths: string[] = []
 
-    if (!isGetRequest || (isGetRequest && excludePaths.includes(requestUrl))) {
-      return undefined
+    if (isGetRequest && !excludePaths.includes(requestUrl)) {
+      return requestUrl
     }
-
-    return requestUrl
   }
 }
