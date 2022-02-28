@@ -1,6 +1,7 @@
 import { CacheModule, Module } from '@nestjs/common'
-import { APP_INTERCEPTOR } from '@nestjs/core'
+import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core'
 import { HttpCacheInterceptor } from 'src/interceptors/cache.interceptor'
+import { ValidationPipe } from 'src/pipes/validation-pipe.pipe'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ConfigModule } from './config/config.module'
@@ -22,6 +23,10 @@ import { UsersModule } from './users/users.module'
     {
       provide: APP_INTERCEPTOR,
       useClass: HttpCacheInterceptor,
+    },
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
     },
     AppService,
   ],

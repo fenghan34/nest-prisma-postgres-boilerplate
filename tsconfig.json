@@ -17,8 +17,8 @@
     "skipLibCheck": true,
     "allowJs": false,
     "strict": true,
+    "strictPropertyInitialization": false,
     "alwaysStrict": true,
-    "strictNullChecks": true,
     "paths": {
       "src/*": ["src/*"]
     }
