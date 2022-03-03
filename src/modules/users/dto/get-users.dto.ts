@@ -1,24 +1,14 @@
-import { Prisma } from '@prisma/client'
-import { IsNumber, IsObject, IsOptional } from 'class-validator'
+import { ApiProperty } from '@nestjs/swagger'
+import { IsNumber, IsOptional } from 'class-validator'
 
 export class GetUsersDto {
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsNumber()
   skip?: number
 
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsNumber()
   take?: number
-
-  @IsOptional()
-  @IsObject()
-  cursor?: Prisma.UserWhereUniqueInput
-
-  @IsOptional()
-  @IsObject()
-  where?: Prisma.UserWhereInput
-
-  @IsOptional()
-  @IsObject()
-  orderBy?: Prisma.UserOrderByWithRelationInput
 }

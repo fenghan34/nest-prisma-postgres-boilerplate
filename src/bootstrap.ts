@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
-import { isDev } from './constants'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './modules/app.module'
 
 export async function bootstrap() {
@@ -9,9 +9,21 @@ export async function bootstrap() {
   app.enableShutdownHooks()
 
   const port = process.env.PORT || 3000
+
+  const logger = new Logger()
+  const docPath = 'api'
+
+  const config = new DocumentBuilder()
+    .setTitle('API Docs')
+    .setVersion('1.0')
+    .build()
+
+  const document = SwaggerModule.createDocument(app, config)
+  SwaggerModule.setup(docPath, app, document)
+
   await app.listen(port)
 
-  isDev && new Logger().verbose(`http://localhost:${port}`)
+  logger.verbose(`http://localhost:${port}/${docPath}`)
 
   return app
 }

@@ -21,14 +21,11 @@ export class UsersService {
   }
 
   async getUsers(params: GetUsersDto): Promise<User[]> {
-    const { skip, take, cursor, where, orderBy } = params
+    const { skip, take } = params
 
     return this.prisma.user.findMany({
       skip,
       take,
-      cursor,
-      where,
-      orderBy,
     })
   }
 
