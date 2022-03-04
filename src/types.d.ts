@@ -6,5 +6,6 @@ declare namespace NodeJS {
     DATABASE_URL?: string
     CACHE_TTL?: string
     CACHE_MAX_ITEMS?: string
+    JWT_SECRET?: string
   }
 }
