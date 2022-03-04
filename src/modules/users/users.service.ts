@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma, User } from '@prisma/client'
 import { DatabaseService } from '../database/database.service'
+import { UtilsService } from '../utils/utils.service'
 import { GetUsersDto } from './dto/get-users.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: DatabaseService) {}
+  constructor(
+    private readonly prisma: DatabaseService,
+    private readonly utilsService: UtilsService,
+  ) {}
 
   async findUser(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
@@ -20,6 +24,10 @@ export class UsersService {
     return this.findUser({ id })
   }
 
+  async findUserByEmail(email: string): Promise<User | null> {
+    return this.findUser({ email })
+  }
+
   async getUsers(params: GetUsersDto): Promise<User[]> {
     const { skip, take } = params
 
@@ -29,8 +37,15 @@ export class UsersService {
     })
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({ data })
+  async createUser({
+    password,
+    ...rest
+  }: Prisma.UserCreateInput): Promise<User> {
+    const passwordHash = await this.utilsService.hash(password)
+
+    return this.prisma.user.create({
+      data: { ...rest, password: passwordHash },
+    })
   }
 
   async updateUser(params: {

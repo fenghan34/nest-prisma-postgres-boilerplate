@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { createMockContext, MockContext } from 'src/mocks/context'
 import { DatabaseService } from '../database/database.service'
+import { UtilsService } from '../utils/utils.service'
 import { UsersService } from './users.service'
 
 describe('UsersService', () => {
@@ -12,6 +13,7 @@ describe('UsersService', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
+        UtilsService,
         UsersService,
         { provide: DatabaseService, useValue: ctx.prisma },
       ],
@@ -36,6 +38,13 @@ describe('UsersService', () => {
     it('should return null', async () => {
       jest.spyOn(service, 'findUser').mockImplementationOnce(async () => null)
       expect(await service.findUserById(1)).toBeNull()
+    })
+  })
+
+  describe('findUserByEmail', () => {
+    it('should return null', async () => {
+      jest.spyOn(service, 'findUser').mockImplementationOnce(async () => null)
+      expect(await service.findUserByEmail('hi@fenghan.link')).toBeNull()
     })
   })
 

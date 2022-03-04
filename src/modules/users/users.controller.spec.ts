@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { User } from '@prisma/client'
 import { createMockContext } from 'src/mocks/context'
 import { DatabaseService } from '../database/database.service'
+import { UtilsService } from '../utils/utils.service'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { UsersController } from './users.controller'
@@ -18,6 +19,7 @@ describe('UsersController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
       providers: [
+        UtilsService,
         UsersService,
         {
           provide: DatabaseService,
